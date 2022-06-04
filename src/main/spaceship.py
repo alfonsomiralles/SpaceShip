@@ -1,14 +1,16 @@
 
 class Spaceship:
 
-    def __init__(self, health, name):
-        self.health = health
+    def __init__(self, name, health, spaceshipsList: list):
         self.name = name
-        if (self.health < 0):
-            raise Exception ('The SpaceShip is destroyed because health is < 0')
+        self.health = health
+        spaceshipsList.append(self)
 
-    def serialize(self):
-        return f'health:{self.health}, name:{self.name}'
+    def serialize(spaceshipsList):
+        data = ""
+        for i in spaceshipsList:
+            data += f"Name: {str(i.name)}\nHealth: {str(i.health)}\n"
+        return data
 
 
 # ship = Spaceship(-1, 'Orion')
