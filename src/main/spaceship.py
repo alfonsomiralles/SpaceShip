@@ -1,17 +1,20 @@
 
+
 class Spaceship:
 
-    def __init__(self, name, health, spaceshipsList: list):
+    def __init__(self, name, health):
         self.name = name
         self.health = health
-        spaceshipsList.append(self)
+        self.alive = True
 
-    def serialize(spaceshipsList):
-        data = ""
-        for i in spaceshipsList:
-            data += f"Name: {str(i.name)}\nHealth: {str(i.health)}\n"
-        return data
+    def __str__(self):
+        return str(self.__dict__)  
 
+    def __repr__(self):
+        return str(self.__dict__)
+        
 
-# ship = Spaceship(-1, 'Orion')
-# print(ship)
+# Spaceship("Orion", 3, SpaceshipRepository.spaceships)
+# print(Spaceship.serialize(SpaceshipRepository.spaceships))
+# Spaceship("Mega", 4, SpaceshipRepository.spaceships)
+# print(Spaceship.serialize(SpaceshipRepository.spaceships))

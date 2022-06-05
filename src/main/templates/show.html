@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Show Spaceships{% endblock %}
+
+{% block content %}
+<h1>Show all SpaceShips</h1>
+<table border ="1">
+    {% for ship in message %}
+    <tr>
+        <th>
+            {{ship}}
+        </th>
+    </tr>
+    {% endfor %}
+</table>
+<p>{{message1}}</p>
+{% endblock %}

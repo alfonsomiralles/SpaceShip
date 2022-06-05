@@ -1,3 +1,0 @@
-
-class SpaceshipRepository:
-    spaceships = []
