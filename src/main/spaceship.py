@@ -3,9 +3,12 @@
 class Spaceship:
 
     def __init__(self, name, health):
-        self.name = name
-        self.health = health
-        self.alive = True
+        if  health < 0:  
+            raise ValueError ("The Spaceship can't have health below 0. Please try again")       
+        else:
+            self.name = name
+            self.health = health
+            self.alive = True
 
     def __hash__(self):
         return hash((self.name, self.health, self.alive))
@@ -21,9 +24,12 @@ class Spaceship:
     def shoot(spaceships, target):
         for x in spaceships:
             if x['name'] == target:
-                print(x)
-                x['health']-=1        
-                print(x)
+                if x['health']==0:
+                    raise Exception("Target is destroyed")
+                x['health']-=1 
+                if x['health'] == 0 :
+                    x['alive'] = False  
+
         
 
 # Spaceship("Orion", 3, SpaceshipRepository.spaceships)

@@ -27,6 +27,9 @@ def create():
             spaceships.append(Ship)
             okmessage = f"Spaceship: {name} created is alive with Health: {health}"
             return render_template("create.html", message=okmessage)  
+        elif (health < 0):
+            nomessage = f"Spaceship: {name} can't have health below 0. Please try again."
+            return render_template("create.html", message=nomessage)      
         else:
             Ship =Spaceship(name, health)
             Ship.alive = False
