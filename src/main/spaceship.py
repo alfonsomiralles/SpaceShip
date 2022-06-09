@@ -18,6 +18,12 @@ class Spaceship:
         # True at the same time
         return not(self == other)
 
+    def shoot(spaceships, target):
+        for x in spaceships:
+            if x['name'] == target:
+                print(x)
+                x['health']-=1        
+                print(x)
         
 
 # Spaceship("Orion", 3, SpaceshipRepository.spaceships)

@@ -57,15 +57,9 @@ def shoot():
             samemessage = "The SpaceShips must be different"
             return  render_template("shoot.html", message = samemessage)
         else:
-            for item in spaceships:
-                print (item)
-                print(type(item))
-                dict(item)
-                print(type(item))
-                if item['name'] == target:
-                    item['health']-=1
-                shootmessage = item
-                return  render_template("shoot.html", message = shootmessage)
+            Spaceship.shoot(spaceships,target)
+            shootmessage = f'The Spaceship {target} has received a shoot'
+            return  render_template("shoot.html", message = shootmessage)
 
     return  render_template("shoot.html")
 
