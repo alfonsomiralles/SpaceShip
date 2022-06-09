@@ -22,7 +22,7 @@ def test_DeadShip():
 def test_ShowShip():
     a = Spaceship("Mega", 5)
     a = a.__dict__
-    expected = {'name':'Mega','health':5, 'alive':True}
+    expected = {'name':'Mega','health':5, 'alive':True, 'weapon':'weapon'}
     assert expected == a
 
 """Feature 3"""
@@ -77,6 +77,12 @@ def test_NoDestroyed():
         Spaceship.shoot(l,a,b)
         expected = Exception
         assert expected == "A Spaceship destroyed can't shoot"
+
+"""Feature 6"""
+"""Test to know if Spaceship is created correctly with weapon by default"""
+def test_Response():
+    ship = Spaceship("Orion",5)
+    assert ship.weapon == "weapon"
 
 
 
