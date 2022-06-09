@@ -61,7 +61,12 @@ def shoot():
             if x['name'] == attacker:
                 if x['alive'] == False:
                     destroyedmessage = "A Spaceship destroyed can't shoot"
-                    return render_template("shoot.html", message = destroyedmessage) 
+                    return render_template("shoot.html", message = destroyedmessage)
+        for x in spaceships:
+            if x['name'] == target:
+                if x['alive'] == False:
+                    deadmessage = "Target is already destroyed"
+                    return render_template("shoot.html", message = deadmessage)              
         if (target == attacker):
             samemessage = "The SpaceShips must be different"
             return  render_template("shoot.html", message = samemessage)
