@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Show Spaceships{% endblock %}
+
+{% block content %}
+<h1>SpaceShip's Attack</h1>
+<form action="#" method="post">
+    <p>Spaceship Shooting:</p>
+    <p><input type="text" name="atacker" required=""/></p>
+	<p>Spaceship being shot:</p>
+	<p><input type="text" name="target" required=""/></p>
+	<p><input type="submit" value="Shoot!"/></p>
+</form>
+</table>
+<p>{{message}}</p>
+{% endblock %}

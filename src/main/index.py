@@ -1,5 +1,5 @@
-import json
-from flask import Flask, redirect, url_for, render_template, request,jsonify
+
+from flask import Flask, redirect, url_for, render_template, request
 from spaceship import Spaceship
 import json
 
@@ -23,12 +23,14 @@ def create():
         
         if (health > 0):
             Ship =Spaceship(name, health)
+            Ship = Ship.__dict__
             spaceships.append(Ship)
             okmessage = f"Spaceship: {name} created is alive with Health: {health}"
-            return render_template("create.html", message=okmessage)
+            return render_template("create.html", message=okmessage)  
         else:
             Ship =Spaceship(name, health)
             Ship.alive = False
+            Ship = Ship.__dict__
             spaceships.append(Ship)
             failmessage = f"The Spaceship: {name} created is already distroyed because Health: {health} must be over 0"
             return render_template("create.html", message = failmessage)
@@ -39,12 +41,33 @@ def show():
     if request.method == "GET":
         if len(spaceships) == 0:
             emptymessage = "The list of SpaceShips is empty, you need to create SpaceShips"
-            return render_template("show.html", message1 = emptymessage)
+            return render_template("show.html", message = emptymessage)
         else:
-            allmessage = spaceships
-            return render_template("show.html", message = allmessage)
+            return render_template("show.html", showships = spaceships)
     return render_template("show.html")
 
+@app.route("/shoot", methods=["POST", "GET"])
+def shoot():
+    if request.method == "POST":
+        attacker = request.form["atacker"]
+        target = request.form["target"]
+        print(attacker)
+        print(target)
+        if (target == attacker):
+            samemessage = "The SpaceShips must be different"
+            return  render_template("shoot.html", message = samemessage)
+        else:
+            for item in spaceships:
+                print (item)
+                print(type(item))
+                dict(item)
+                print(type(item))
+                if item['name'] == target:
+                    item['health']-=1
+                shootmessage = item
+                return  render_template("shoot.html", message = shootmessage)
+
+    return  render_template("shoot.html")
 
 if __name__=="__main__":
     app.run(debug=True)

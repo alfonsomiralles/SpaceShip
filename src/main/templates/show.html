@@ -4,13 +4,12 @@
 {% block content %}
 <h1>Show all SpaceShips</h1>
 <table border ="1">
-    {% for ship in message %}
+    {% for key in showships %}
     <tr>
-        <th>
-            {{ship}}
-        </th>
+        <td>{{key}}</td>
     </tr>
+
     {% endfor %}
 </table>
-<p>{{message1}}</p>
+<p>{{message}}</p>
 {% endblock %}
