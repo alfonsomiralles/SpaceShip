@@ -21,18 +21,15 @@ class Spaceship:
         # True at the same time
         return not(self == other)
 
-    def shoot(spaceships, target):
+    def shoot(spaceships, attacker, target):
         for x in spaceships:
-            if x['name'] == target:
-                if x['health']==0:
-                    raise Exception("Target is destroyed")
-                x['health']-=1 
-                if x['health'] == 0 :
-                    x['alive'] = False  
-
-        
-
-# Spaceship("Orion", 3, SpaceshipRepository.spaceships)
-# print(Spaceship.serialize(SpaceshipRepository.spaceships))
-# Spaceship("Mega", 4, SpaceshipRepository.spaceships)
-# print(Spaceship.serialize(SpaceshipRepository.spaceships))
+            if x['name'] == attacker:
+                if x['alive'] == False:
+                    raise Exception("A Spaceship destroyed can't shoot")
+            else:
+                if x['name'] == target:
+                    if x['health']==0:
+                        raise Exception("Target is destroyed")
+                    x['health']-=1 
+                    if x['health'] == 0 :
+                        x['alive'] = False   

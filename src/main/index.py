@@ -56,11 +56,17 @@ def shoot():
         target = request.form["target"]
         print(attacker)
         print(target)
+        
+        for x in spaceships:
+            if x['name'] == attacker:
+                if x['alive'] == False:
+                    destroyedmessage = "A Spaceship destroyed can't shoot"
+                    return render_template("shoot.html", message = destroyedmessage) 
         if (target == attacker):
             samemessage = "The SpaceShips must be different"
             return  render_template("shoot.html", message = samemessage)
         else:
-            Spaceship.shoot(spaceships,target)
+            Spaceship.shoot(spaceships, attacker, target)
             shootmessage = f'The Spaceship {target} has received a shoot'
             return  render_template("shoot.html", message = shootmessage)
 

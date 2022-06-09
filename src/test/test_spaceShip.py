@@ -35,7 +35,7 @@ def test_Shooting():
     b = b.__dict__
     l.append(a)
     l.append(b)
-    Spaceship.shoot(l,b)
+    Spaceship.shoot(l,a,b)
     expected = b['health'] = 4
     assert expected == b['health']
 
@@ -49,6 +49,7 @@ def test_NoCreateShip():
         assert expected == "The Spaceship can't have health below 0. Please try again"
  
 """Feature 4"""
+"""Test to know if Spaceship with health=0 can be shooted"""
 def test_NoShootHealth():
     with pytest.raises(Exception):
         l = []
@@ -58,10 +59,24 @@ def test_NoShootHealth():
         b = b.__dict__
         l.append(a)
         l.append(b)
-        Spaceship.shoot(l,b)
+        Spaceship.shoot(l,a,b)
         expected = Exception
         assert expected == "Target is destroyed"
 
+"""Feature 5"""
+"""Test to know if destroyed Spaceship can shoot"""
+def test_NoDestroyed():
+    with pytest.raises(Exception):
+        l = []
+        a = Spaceship("Mega", 0)
+        a = a.__dict__
+        b = Spaceship("Mega", 2)
+        b = b.__dict__
+        l.append(a)
+        l.append(b)
+        Spaceship.shoot(l,a,b)
+        expected = Exception
+        assert expected == "A Spaceship destroyed can't shoot"
 
 
 
