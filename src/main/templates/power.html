@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Modify Power-consumed-by-weapon{% endblock %}
+
+{% block content %}
+<h1>Modify Power-consumed-by-weapon</h1>
+<form action="#" method="post">
+    <p>Spaceship's name:</p>
+    <p><input type="text" name="name" required=""/></p>
+	<p>New Power-consumed-by-weapon:</p>
+	<p><input type="number" name="power_consumed_by_weapon" required=""/></p>
+	<p><input type="submit" value="Modify"/></p>
+</form>
+</table>
+<p>{{message}}</p>
+{% endblock %}

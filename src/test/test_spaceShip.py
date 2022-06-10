@@ -18,7 +18,7 @@ def test_DeadShip():
     assert expected == a['alive']
 
 """Feature 2"""
-"""Feature 9"""
+"""Feature 8"""
 """Test to know if Spaceship is showed as a dictionary with all the keys and values"""
 def test_ShowShip():
     a = Spaceship("Mega", 3, 10, 2)
@@ -54,9 +54,9 @@ def test_NoCreateShip():
 def test_NoShootHealth():
     with pytest.raises(Exception):
         l = []
-        a = Spaceship("Mega", 5)
+        a = Spaceship("Mega", 5, 2, 2)
         a = a.__dict__
-        b = Spaceship("Mega", 0)
+        b = Spaceship("Omega", 0, 2, 2)
         b = b.__dict__
         l.append(a)
         l.append(b)
@@ -69,9 +69,9 @@ def test_NoShootHealth():
 def test_NoDestroyed():
     with pytest.raises(Exception):
         l = []
-        a = Spaceship("Mega", 0)
+        a = Spaceship("Mega", 5, 2, 2)
         a = a.__dict__
-        b = Spaceship("Mega", 2)
+        b = Spaceship("Omega", 0, 2, 2)
         b = b.__dict__
         l.append(a)
         l.append(b)
@@ -95,7 +95,7 @@ def test_Response():
         assert expected == "power-not-in-use can't be higher than total-power"
 
 """Feature 7"""
-"""Feature 9"""
+"""Feature 8"""
 """Test to know if Spaceship gets erro when created with negative values"""
 def test_Response():
     with pytest.raises(ValueError):
@@ -104,8 +104,28 @@ def test_Response():
         assert expected == "weapon power needed can't be below 0"
 
 
+"""Feature 9"""
+"""Test to know if Spaceship power-consumed-by-weapon is modified correctly"""
+def test_Response():
+    l = []
+    a = Spaceship("Mega", 5, 3, 3)
+    a = a.__dict__
+    l.append(a)
+    Spaceship.modify(l,"Mega", 2)
+    expected = a
+    assert expected == {'name': 'Mega', 'health': 5, 'alive': True, 'total_power': 3, 'weapon_power_needed': 3, 'power_consumed_by_weapon': 2, 'power_not_in_use': 1}
 
-
+"""Feature 9"""
+"""Test to know if Spaceship power-consumed-by-weapon raises Exception"""
+def test_Response():
+    with pytest.raises(Exception):
+        l = []
+        a = Spaceship("Mega", 5, 3, 3)
+        a = a.__dict__
+        l.append(a)
+        Spaceship.modify(l,"Mega", 4)
+        expected = Exception
+        assert expected == "power can't be higher than total-power"
 
 
 
