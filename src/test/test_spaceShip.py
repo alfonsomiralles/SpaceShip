@@ -93,6 +93,14 @@ def test_Response():
         expected = ValueError
         assert expected == "power-not-in-use can't be higher than total-power"
 
+"""Feature 7"""
+"""Test to know if Spaceship gets erro when created with negative values"""
+def test_Response():
+    with pytest.raises(ValueError):
+        Spaceship("Orion",5, 2, -1)
+        expected = ValueError
+        assert expected == "power can't be below 0"
+
 
 
 

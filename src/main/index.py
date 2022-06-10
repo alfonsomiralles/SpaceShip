@@ -26,9 +26,12 @@ def create():
             if x['name'] == name:
                 duplicatemessage = "The Spaceship can't be created because already exists!"
                 return render_template("create.html", message = duplicatemessage)
+        if (powernotinuse < 0 or totalpower < 0):
+            nomessage = f"power can't be below 0"
+            return render_template("create.html", message=nomessage)        
         if (powernotinuse > totalpower):
             nomessage = f"power-not-in-use can't be higher than total-power"
-            return render_template("create.html", message=nomessage) 
+            return render_template("create.html", message=nomessage)     
         if (health > 0):
             Ship =Spaceship(name, health, totalpower, powernotinuse)
             Ship = Ship.__dict__
