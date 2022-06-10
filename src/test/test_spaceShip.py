@@ -12,7 +12,7 @@ def test_Response():
 """Feature 1"""
 """Test to know if Spaceship with 0 health appears as status 'alive':False"""
 def test_DeadShip():
-    a = Spaceship("Mega", 0)
+    a = Spaceship("Mega", 0, 2, 2)
     a = a.__dict__
     expected = a['alive'] = False
     assert expected == a['alive']
@@ -20,18 +20,18 @@ def test_DeadShip():
 """Feature 2"""
 """Test to know if Spaceship is showed as a dictionary with all the keys and values"""
 def test_ShowShip():
-    a = Spaceship("Mega", 5)
+    a = Spaceship("Mega", 5, 5, 5)
     a = a.__dict__
-    expected = {'name':'Mega','health':5, 'alive':True, 'weapon':'weapon'}
+    expected = {'name':'Mega','health':5, 'alive':True, 'weapon':'weapon', 'totalpower': 5, 'powernotinuse': 5}
     assert expected == a
 
 """Feature 3"""
 """Test to know if Spaceship A can shoot Spaceship B and decreases -1 health of B"""
 def test_Shooting():
     l = []
-    a = Spaceship("Mega", 5)
+    a = Spaceship("Mega", 5, 2, 2)
     a = a.__dict__
-    b = Spaceship("Mega", 5)
+    b = Spaceship("Mega", 5, 2, 2)
     b = b.__dict__
     l.append(a)
     l.append(b)
@@ -43,7 +43,7 @@ def test_Shooting():
 """Test to know if Spaceship with health < 0 can be created"""
 def test_NoCreateShip():
     with pytest.raises(ValueError):
-        a = Spaceship("Mega", -1)
+        a = Spaceship("Mega", -1, 2, 2)
         a = a.__dict__
         expected = ValueError
         assert expected == "The Spaceship can't have health below 0. Please try again"
@@ -81,8 +81,25 @@ def test_NoDestroyed():
 """Feature 6"""
 """Test to know if Spaceship is created correctly with weapon by default"""
 def test_Response():
-    ship = Spaceship("Orion",5)
+    ship = Spaceship("Orion",5, 2, 2)
     assert ship.weapon == "weapon"
+
+
+"""Feature 7"""
+"""Test to know if Spaceship gets erro when created with wrong values for power-not-in-use"""
+def test_Response():
+    with pytest.raises(ValueError):
+        Spaceship("Orion",5, 2, 3)
+        expected = ValueError
+        assert expected == "power-not-in-use can't be higher than total-power"
+
+"""Feature 7"""
+"""Test to know if Spaceship gets erro when created with negative values"""
+def test_Response():
+    with pytest.raises(ValueError):
+        Spaceship("Orion",5, 2, -1)
+        expected = ValueError
+        assert expected == "power can't be below 0"
 
 
 

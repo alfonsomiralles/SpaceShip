@@ -20,18 +20,29 @@ def create():
     if request.method == "POST":
         name = request.form["name"]
         health = int(request.form["health"])
-        
+        totalpower = int(request.form["totalpower"])
+        powernotinuse = int(request.form["powernotinuse"])
+        for x in spaceships:
+            if x['name'] == name:
+                duplicatemessage = "The Spaceship can't be created because already exists!"
+                return render_template("create.html", message = duplicatemessage)
+        if (powernotinuse < 0 or totalpower < 0):
+            nomessage = f"power can't be below 0"
+            return render_template("create.html", message=nomessage)        
+        if (powernotinuse > totalpower):
+            nomessage = f"power-not-in-use can't be higher than total-power"
+            return render_template("create.html", message=nomessage)     
         if (health > 0):
-            Ship =Spaceship(name, health)
+            Ship =Spaceship(name, health, totalpower, powernotinuse)
             Ship = Ship.__dict__
             spaceships.append(Ship)
             okmessage = f"Spaceship: {name} created is alive with Health: {health}"
             return render_template("create.html", message=okmessage)  
-        elif (health < 0):
+        if (health < 0):
             nomessage = f"Spaceship: {name} can't have health below 0. Please try again."
-            return render_template("create.html", message=nomessage)      
+            return render_template("create.html", message=nomessage)         
         else:
-            Ship =Spaceship(name, health)
+            Ship =Spaceship(name, health, totalpower, powernotinuse)
             Ship.alive = False
             Ship = Ship.__dict__
             spaceships.append(Ship)
