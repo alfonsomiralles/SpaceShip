@@ -21,19 +21,16 @@ def create():
         name = request.form["name"]
         health = int(request.form["health"])
         totalpower = int(request.form["totalpower"])
-        powernotinuse = int(request.form["powernotinuse"])
+        weaponpowerneeded = int(request.form["weaponpowerneeded"])
         for x in spaceships:
             if x['name'] == name:
                 duplicatemessage = "The Spaceship can't be created because already exists!"
                 return render_template("create.html", message = duplicatemessage)
-        if (powernotinuse < 0 or totalpower < 0):
+        if (totalpower < 0):
             nomessage = f"power can't be below 0"
-            return render_template("create.html", message=nomessage)        
-        if (powernotinuse > totalpower):
-            nomessage = f"power-not-in-use can't be higher than total-power"
-            return render_template("create.html", message=nomessage)     
+            return render_template("create.html", message=nomessage)            
         if (health > 0):
-            Ship =Spaceship(name, health, totalpower, powernotinuse)
+            Ship =Spaceship(name, health, totalpower, weaponpowerneeded)
             Ship = Ship.__dict__
             spaceships.append(Ship)
             okmessage = f"Spaceship: {name} created is alive with Health: {health}"
@@ -42,7 +39,7 @@ def create():
             nomessage = f"Spaceship: {name} can't have health below 0. Please try again."
             return render_template("create.html", message=nomessage)         
         else:
-            Ship =Spaceship(name, health, totalpower, powernotinuse)
+            Ship =Spaceship(name, health, totalpower, weaponpowerneeded)
             Ship.alive = False
             Ship = Ship.__dict__
             spaceships.append(Ship)
@@ -77,7 +74,11 @@ def shoot():
             if x['name'] == target:
                 if x['alive'] == False:
                     deadmessage = "Target is already destroyed"
-                    return render_template("shoot.html", message = deadmessage)              
+                    return render_template("shoot.html", message = deadmessage)
+        for x in spaceships:
+            if x['weapon_power_needed'] != x['power_consumed_by_weapon']:
+                deadmessage = "Weapon-Power-Needed must be equal than Power-Consumed-by-Weapon"
+                return render_template("shoot.html", message = deadmessage)                           
         if (target == attacker):
             samemessage = "The SpaceShips must be different"
             return  render_template("shoot.html", message = samemessage)

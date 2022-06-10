@@ -18,11 +18,12 @@ def test_DeadShip():
     assert expected == a['alive']
 
 """Feature 2"""
+"""Feature 9"""
 """Test to know if Spaceship is showed as a dictionary with all the keys and values"""
 def test_ShowShip():
-    a = Spaceship("Mega", 5, 5, 5)
+    a = Spaceship("Mega", 3, 10, 2)
     a = a.__dict__
-    expected = {'name':'Mega','health':5, 'alive':True, 'weapon':'weapon', 'totalpower': 5, 'powernotinuse': 5}
+    expected = {'name': 'Mega', 'health': 3, 'alive': True, 'total_power': 10, 'weapon_power_needed': 2, 'power_not_in_use': 8, 'power_consumed_by_weapon': 2}
     assert expected == a
 
 """Feature 3"""
@@ -94,12 +95,13 @@ def test_Response():
         assert expected == "power-not-in-use can't be higher than total-power"
 
 """Feature 7"""
+"""Feature 9"""
 """Test to know if Spaceship gets erro when created with negative values"""
 def test_Response():
     with pytest.raises(ValueError):
         Spaceship("Orion",5, 2, -1)
         expected = ValueError
-        assert expected == "power can't be below 0"
+        assert expected == "weapon power needed can't be below 0"
 
 
 

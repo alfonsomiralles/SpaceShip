@@ -2,27 +2,29 @@
 
 class Spaceship:
 
-    def __init__(self, name, health, totalpower, powernotinuse):
+    def __init__(self, name, health, total_power, weapon_power_needed):
         if  health < 0:  
             raise ValueError ("The Spaceship can't have health below 0. Please try again")
-        if totalpower < 0  or powernotinuse < 0:
+        if total_power < 0:
             raise ValueError ("power can't be below 0")  
-        if powernotinuse > totalpower:
-            raise ValueError ("power-not-in-use can't be higher than total-power") 
-                  
+        if  weapon_power_needed < 0:
+            raise ValueError ("weapon power needed can't be below 0")
+         
         else:
             self.name = name
             self.health = health
             self.alive = True
-            self.weapon = 'weapon'
-            self.totalpower = totalpower
-            self.powernotinuse = powernotinuse
+            self.total_power = total_power
+            self.weapon_power_needed = weapon_power_needed
+            self.power_not_in_use = self.total_power-self.weapon_power_needed
+            self.power_consumed_by_weapon = self.weapon_power_needed
+            
 
     def __hash__(self):
-        return hash((self.name, self.health, self.alive))
+        return hash((self.name, self.health, self.alive, self.total_power, self.weapon_power_needed, self.power_not_in_use, self.power_consumed_by_weapon))
 
     def __eq__(self, other):
-        return (self.name, self.health, self.alive, self.weapon, self.totalpower, self.powernotinuse) == (other.name, other.health, other.alive, other.weapon, other.totalpower, other.powernotinuse)
+        return (self.name, self.health, self.alive, self.total_power, self.weapon_power_needed, self.power_not_in_use, self.power_consumed_by_weapon) == (other.name, other.health, other.alive, other.total_power, other.weapon_power_needed, other.power_not_in_use, other.power_consumed_by_weapon)
 
     def __ne__(self, other):
         # Not strictly necessary, but to avoid having both x==y and x!=y
@@ -30,6 +32,9 @@ class Spaceship:
         return not(self == other)
 
     def shoot(spaceships, attacker, target):
+        for x in spaceships:
+            if x['weapon_power_needed'] != x['power_consumed_by_weapon']:
+                raise Exception("Weapon-Power-Needed must be equal than Power-Consumed-by-Weapon")
         for x in spaceships:
             if x['name'] == attacker:
                 if x['alive'] == False:
